@@ -1,0 +1,86 @@
+1)Create collections for events, participants, and venues.
+a)Create Participants Table:-
+CREATE TABLE PARTICIPANTS(
+ParticipantID  INT,
+Name VARCHAR(20),
+Registered BOOLEAN,
+DATE DATE
+);
+
+b)Create Venues Table:-
+CREATE TABLE Venues(
+Date DATE,
+Place VARCHAR(20),
+Confirmation BOOLEAN,
+);
+
+c)Create Events Table:-
+CREATE TABLE EVENTS(
+EventID INT,
+NAME VARCHAR(20),
+VenueID INT,
+Date DATE
+);
+
+
+
+2)Insert events with details like EventID, Name, VenueID, and Date:-
+a)INSERT INTO EVENTS(EventID, NAME, VenueID, Date)
+VALUES(1, 'Wedding', 101, '2024-04-10'),
+      (2, 'Function', 102, '2024-02-24'),
+      (3, 'Birthday', 103, '2024-02-05'),
+      (4, 'Engagement', 104, '2024-11-04');
+
+b)INSERT INTO PARTICIPANTS(ParticipantsID, Name, Registered)
+VALUES(11, 'Yamini', 'Yes'),
+      (12, 'Nandu', 'No'),
+      (13, 'Bhavya', 'Yes'),
+      (14, 'Harshi', 'No');
+
+c)INSERT INTO Venues(Date, Place, Confirmation)
+VALUES('2024-04-10', 'Nellore', 'Yes'),
+      ('2024-02-24', 'Chennai', 'No'),
+      ('2024-02-05', 'Hyderabad', 'Yes'),
+      ('2024-11-04', 'Tirupati', 'No');
+
+
+
+3)Query to select all participants registered for a specific event:-
+SELECT* FROM PARTICIPANTS WHERE Registered= 'Yes';
+
+
+
+4)Update the event details or venue after confirmation:-
+UPDATE Venues SET Confirmation='Yes' WHERE Confirmation= 'No'
+
+
+
+5)Delete participant registrations for canceled events:-
+DELETE FROM PARTICIPANTS WHERE Registered='No';
+
+
+
+6)Filter events by date or venue:-
+SELECT* FROM EVENTS WHERE Date= '2024-02-24' OR VenueID= '104';
+
+
+
+7)Use AND/OR to find events by type and availability:-
+SELECT* FROM EVENTS WHERE Date= '2024-02-24' AND VenueID= '102';
+
+
+
+8)Sort events by date in ascending order:-
+SELECT* FROM EVENTS ORDER BY Date ASC;
+
+
+
+9)Use aggregate functions to count the total number of participants for each event:-
+SELECT Registered, COUNT(ParticipantID) AS TotalParticipants FROM PARTICIPANTS GROUP BY ParticipantID;
+
+
+
+10)Group events by venue and calculate the total revenue for each event:-
+SELECT Venues.Place, Venues.Confirmation, SUM(Date.Revenue) AS TotalRevenue FROM Venues JOIN Venues ON Venues.Place = Venues.Place
+JOIN Venues ON Venues.Place = Date.Place
+GROUP BY Venues.Place, Venues.Confirmation;
